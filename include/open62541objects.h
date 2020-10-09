@@ -33,7 +33,7 @@
 #include <functional>
 #include <typeinfo>
 #include "propertytree.h"
-#include <boost/any.hpp>
+#include <any>
 //
 // Open 62541 has quasi new-delete and copy operators for each object type
 // define wrappers for Open 62541 objects
@@ -643,7 +643,7 @@ namespace Open62541 {
 
             // convert from an any to Variant
             // limit to basic types
-            void fromAny(boost::any &a);
+            void fromAny(std::any &a);
             /*!
              * \brief toString
              * \return variant in string form

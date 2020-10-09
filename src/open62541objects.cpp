@@ -37,51 +37,51 @@ UA_BrowsePathTarget Open62541::BrowsePathResult::nullResult = { UA_EXPANDEDNODEI
 
 
 //
-// boost::any to variant conversion
+// std::any to variant conversion
 // just basic types
 //
 /*!
     \brief Open62541::Variant::fromAny
-    \param a boost::any
+    \param a std::any
 */
-void Open62541::Variant::fromAny(boost::any &a) {
+void Open62541::Variant::fromAny(std::any &a) {
     null(); // clear
     // get the type id as a hash code
     auto t = a.type().hash_code();
     if (t == typeid(std::string).hash_code()) {
-        std::string v = boost::any_cast<std::string>(a);
+        std::string v = std::any_cast<std::string>(a);
         UA_String ss;
         ss.length = v.size();
         ss.data = (UA_Byte *)(v.c_str());
         UA_Variant_setScalarCopy((UA_Variant *)ref(), &ss, &UA_TYPES[UA_TYPES_STRING]);
     }
     else if (t == typeid(int).hash_code()) {
-        int v = boost::any_cast<int>(a);
+        int v = std::any_cast<int>(a);
         UA_Variant_setScalarCopy((UA_Variant *)ref(), &v, &UA_TYPES[UA_TYPES_INT32]);
 
     }
     else if (t == typeid(char).hash_code()) {
-        short v = short(boost::any_cast<char>(a));
+        short v = short(std::any_cast<char>(a));
         UA_Variant_setScalarCopy((UA_Variant *)ref(), &v, &UA_TYPES[UA_TYPES_INT16]);
     }
     else if (t == typeid(bool).hash_code()) {
-        bool v = boost::any_cast<bool>(a);
+        bool v = std::any_cast<bool>(a);
         UA_Variant_setScalarCopy((UA_Variant *)ref(), &v, &UA_TYPES[UA_TYPES_BOOLEAN]);
     }
     else if (t == typeid(double).hash_code()) {
-        double v = boost::any_cast<double>(a);
+        double v = std::any_cast<double>(a);
         UA_Variant_setScalarCopy((UA_Variant *)ref(), &v, &UA_TYPES[UA_TYPES_DOUBLE]);
     }
     else if (t == typeid(unsigned).hash_code()) {
-        unsigned v = boost::any_cast<unsigned>(a);
+        unsigned v = std::any_cast<unsigned>(a);
         UA_Variant_setScalarCopy((UA_Variant *)ref(), &v, &UA_TYPES[UA_TYPES_UINT32]);
     }
     else if (t == typeid(long long).hash_code()) {
-        long long v = boost::any_cast<long long>(a);
+        long long v = std::any_cast<long long>(a);
         UA_Variant_setScalarCopy((UA_Variant *)ref(), &v, &UA_TYPES[UA_TYPES_INT64]);
     }
     else if (t == typeid(unsigned long long).hash_code()) {
-        unsigned long long v = boost::any_cast<unsigned long long>(a);
+        unsigned long long v = std::any_cast<unsigned long long>(a);
         UA_Variant_setScalarCopy((UA_Variant *)ref(), &v, &UA_TYPES[UA_TYPES_UINT64]);
     }
 }

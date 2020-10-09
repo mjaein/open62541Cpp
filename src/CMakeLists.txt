@@ -26,11 +26,7 @@ add_library(OBJS OBJECT ${LIB_SOURCES})
 set_property(TARGET OBJS PROPERTY POSITION_INDEPENDENT_CODE ON)
 add_library(${OPEN62541_CPP} SHARED $<TARGET_OBJECTS:OBJS>)
 
-# add boost to target
-include(../Common.cmake)
-if (Boost_FOUND)
-    target_link_libraries(${OPEN62541_CPP} ${Boost_LIBRARIES})
-endif ()
+target_link_libraries(${OPEN62541_CPP} ws2_32)
 
 ## set the shared library soname
 set_target_properties(${OPEN62541_CPP} PROPERTIES

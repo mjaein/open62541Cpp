@@ -11,32 +11,29 @@
  */
 #ifndef UA_PROPERTYTREE_H
 #define UA_PROPERTYTREE_H
-#include <boost/optional/optional.hpp>
-#include <boost/thread.hpp>
-#include <boost/thread/locks.hpp>
-#include <boost/bind.hpp>
+#include <optional>
+#include <thread>
 #include <string>
 #include <vector>
 #include <map>
-#include <boost/tokenizer.hpp>
-#include <boost/foreach.hpp>
 #include <iterator>
 #include <algorithm>
 #include <ostream>
 #include <functional>
+#include <shared_mutex>
 
 // Mutexs
 //
 namespace Open62541 {
 
-    typedef boost::shared_mutex ReadWriteMutex;
-    typedef boost::shared_lock<boost::shared_mutex> ReadLock;
-    typedef boost::unique_lock<boost::shared_mutex> WriteLock;
+    typedef std::shared_mutex ReadWriteMutex;
+    typedef std::shared_lock<std::shared_mutex> ReadLock;
+    typedef std::unique_lock<std::shared_mutex> WriteLock;
 
     // a tree is an addressable set of nodes
     // objects of type T must have an assignment operator
     //
-    typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
+    //typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
     /*!
            \brief The NodePath class
     */
@@ -49,11 +46,11 @@ namespace Open62541 {
                 \param seperator
             */
             void toList(const T &s, const char *seperator = ".") {
-                boost::char_separator<char> sep(seperator);
+                /*boost::char_separator<char> sep(seperator);
                 tokenizer tokens(s, sep);
                 for (auto i = tokens.begin(); i != tokens.end(); i++) {
                     this->push_back(*i);
-                }
+                }*/
             }
             /*!
                 \brief toString
